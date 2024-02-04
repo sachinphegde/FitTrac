@@ -9,6 +9,7 @@ nav:
   - Technical Documentation:
     - Python library: technicalDocs/libraries.md
     - Strava: technicalDocs/strava.md
+    - Python setup: technicalDocs/python.md
   - User Documentation:
     - Setup: userDocs/setup.md
     - Usage: userDocs/usage.md
