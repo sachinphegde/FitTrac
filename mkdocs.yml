@@ -1,0 +1,15 @@
+site_name: FitTrac
+site_url: https://github.com/sachinphegde/FitTrac
+
+repo_name: sachinphegde/FitTrac
+repo_url: https://github.com/sachinphegde/FitTrac
+
+nav:
+  - Home: index.md
+  - Technical Documentation:
+    - Python library: technicalDocs/libraries.md
+    - Strava: technicalDocs/strava.md
+  - User Documentation:
+    - Setup: userDocs/setup.md
+    - Usage: userDocs/usage.md
+theme: material
