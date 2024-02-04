@@ -21,3 +21,5 @@ def authentication():
 # 	-F client_secret=YOURCLIENTSECRET \
 # 	-F code=AUTHORIZATIONCODE \
 # 	-F grant_type=authorization_code
+
+requests.post('https://www.strava.com/oauth/token',)
