@@ -1,36 +1,41 @@
-#!/usr/bin/env python3
-
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
 
-# Dummy user database (replace this with your actual user database)
-users = {
-    'john': 'password123',
-    'emma': 'abc123',
-    'alice': 'qwerty'
-}
+# Dummy database for storing user credentials (you would typically use a real database)
+users = {}
 
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('index.html')
 
-@app.route('/login', methods=['POST'])
-def login():
+@app.route('/signin', methods=['POST'])
+def signin():
     username = request.form['username']
     password = request.form['password']
-
     if username in users and users[username] == password:
-        # Authentication successful
-        # Here you would typically set up a session for the user
-        return redirect(url_for('success'))
+        # Authentication successful, redirect to home page or dashboard
+        return redirect(url_for('home'))
     else:
-        # Authentication failed
-        return render_template('login.html', message='Invalid username or password')
+        # Authentication failed, redirect back to login page with error message
+        return redirect(url_for('index', error='Invalid username or password'))
 
-@app.route('/success')
-def success():
-    return 'Login successful!'
+@app.route('/signup', methods=['POST'])
+def signup():
+    new_username = request.form['new_username']
+    new_password = request.form['new_password']
+    if new_username in users:
+        # Username already exists, redirect back to signup page with error message
+        return redirect(url_for('index', error='Username already exists'))
+    else:
+        # Registration successful, add new user to the database
+        users[new_username] = new_password
+        # Optionally, you may redirect the user to the login page or a success page
+        return redirect(url_for('index'))
+
+@app.route('/home')
+def home():
+    return 'Welcome to the home page'
 
 if __name__ == '__main__':
     app.run(debug=True)
