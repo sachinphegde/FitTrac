@@ -27,6 +27,7 @@ def index():
     auth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' for k, v in auth_params.items()]))
     return redirect(auth_url)
 
+
 @auth.route('/exchange_token')
 def exchange_token():
     # Exchange authorization code for access token
