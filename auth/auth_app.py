@@ -9,7 +9,7 @@ from database import getstrava_data
 CLIENT_ID = '90219'
 CLIENT_SECRET = 'e3a4f68ebd6db0d5754fb993f4f39abaa3878090'
 STRAVA_AUTH_URL = 'http://www.strava.com/oauth/authorize'
-REDIRECT_URI = 'http://127.0.0.1:5000/strava-auth/exchange_token'
+REDIRECT_URI = 'http://127.0.0.1:5000/strava-auth/exchange-token'
 
 
 auth = Blueprint('auth', __name__, url_prefix='/strava-auth')
@@ -28,7 +28,7 @@ def index():
     return redirect(auth_url)
 
 
-@auth.route('/exchange_token')
+@auth.route('/exchange-token', methods=['GET']) # type: ignore
 def exchange_token():
     # Exchange authorization code for access token
     code = request.args.get('code')
