@@ -4,25 +4,13 @@ import sys
 from flask import Flask, request, redirect, Blueprint
 import requests
 import yaml
-import datetime
 from database import getstrava_data
-
-
-# with open('secrets.yaml', 'r') as file:
-#     data = yaml.safe_load(file)
-
-# CLIENT_ID = data['CLIENT_ID']
-# CLIENT_SECRET = data['CLIENT_SECRET']
-# STRAVA_AUTH_URL = data['STRAVA_AUTH_URL']
-# TOKEN_EXCHANGE_URL = data['TOKEN_EXCHANGE_URL']
-# REDIRECT_URI = data['REDIRECT_URI']
 
 CLIENT_ID = '90219'
 CLIENT_SECRET = 'e3a4f68ebd6db0d5754fb993f4f39abaa3878090'
 STRAVA_AUTH_URL = 'http://www.strava.com/oauth/authorize'
-TOKEN_EXCHANGE_URL = 'https://www.strava.com/oauth/token'
 REDIRECT_URI = 'http://127.0.0.1:5000/strava-auth/exchange_token'
-BASE_URL = "https://www.strava.com/api/v3"
+
 
 auth = Blueprint('auth', __name__, url_prefix='/strava-auth')
 
@@ -34,7 +22,7 @@ def index():
         'response_type': 'code',
         'redirect_uri': REDIRECT_URI,
         'approval_prompt': 'force',
-        'scope': 'read'
+        'scope': 'read,activity:read'
     }
     auth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' for k, v in auth_params.items()]))
     return redirect(auth_url)
@@ -49,32 +37,4 @@ def exchange_token():
         'code': code,
         'grant_type': 'authorization_code'
     }
-    response = requests.post(TOKEN_EXCHANGE_URL, data=token_params)
-    if response.status_code == 200:
-        data = response.json()
-        access_token = data['access_token']
-        refresh_token = data['refresh_token']
-        print(f"Access token: {access_token}")
-        print(f"Refresh token: {refresh_token}")
-    #access_token = response.json().get('access_token')
-
-    # Do something with the access token, like make API requests
-    # For example:
-    strava_data = requests.get('https://www.strava.com/api/v3/athlete', headers={'Authorization': f'Bearer {access_token}'}).json()
-
-
-    expires_at_unix_timestamp = response.json().get('expires_at')
-    expires_at_datetime = datetime.datetime.utcfromtimestamp(expires_at_unix_timestamp)
-    #print("Expires at:", expires_at_datetime)
-
-    getstrava_data.get_activities(BASE_URL, access_token)
-
-    return redirect()
-    #return f'expiry date: {expires_at_datetime}, strava data: {strava_data}'
-
-
-# TODO: chek if we get the exchange token or not and based on that throw error or collect user data
-# TODO:   storing the data in database
-# TODO: gettin new access token using refresh token and doing it befoe it expires
-# TODO: create an architecture for api's
-
+    getstrava_data.get_access_token(token_params)
