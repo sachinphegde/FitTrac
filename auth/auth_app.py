@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from flask import Flask, request, redirect, Blueprint
+from flask import Flask, request, redirect, Blueprint, render_template
 import requests
 import yaml
 from database import getstrava_data
@@ -12,7 +12,7 @@ STRAVA_AUTH_URL = 'http://www.strava.com/oauth/authorize'
 REDIRECT_URI = 'http://127.0.0.1:5000/strava-auth/exchange-token'
 
 
-auth = Blueprint('auth', __name__, url_prefix='/strava-auth')
+auth = Blueprint('auth', __name__, url_prefix='/strava-auth', template_folder='templates')
 
 @auth.route('/')
 def index():
@@ -24,8 +24,9 @@ def index():
         'approval_prompt': 'force',
         'scope': 'read,activity:read'
     }
-    auth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' for k, v in auth_params.items()]))
-    return redirect(auth_url)
+    strava_oauth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' for k, v in auth_params.items()]))
+    return render_template('login.html', strava_oauth_url=strava_oauth_url)
+    #return redirect(auth_url)
 
 
 @auth.route('/exchange-token', methods=['GET']) # type: ignore

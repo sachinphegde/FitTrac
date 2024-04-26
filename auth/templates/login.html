@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login with Strava and Garmin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=1485&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Replace 'background.jpg' with your actual background image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding-top: 50px; /* Adjust as needed */
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 10px;
+      font-size: 18px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FitTrac</h1>
+    <a class="btn" href="{{ strava_oauth_url }}">Sign up with Strava</a>
+    <a class="btn" href="{{ garmin_oauth_url }}">Sign up with Garmin</a>
+  </div>
+</body>
+</html>
