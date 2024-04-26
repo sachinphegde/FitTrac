@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://github.com/sachinphegde/FitTrac/userDocs/setup/">
+        <link rel="canonical" href="https://github.com/sachinphegde/FitTrac/technicalDocs/python/">
       
       
-        <link rel="prev" href="../../technicalDocs/strava/">
-      
-      
-        <link rel="next" href="../usage/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Setup - FitTrac</title>
+        <title>Python setup - FitTrac</title>
       
     
     
@@ -63,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#python-setup" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -95,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setup
+              Python setup
             
           </span>
         </div>
@@ -267,7 +268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../technicalDocs/libraries/" class="md-nav__link">
+      <a href="../libraries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -288,7 +289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../technicalDocs/strava/" class="md-nav__link">
+      <a href="../strava/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -313,19 +314,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -339,7 +338,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             User Documentation
@@ -350,17 +349,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../userDocs/setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -369,7 +361,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -382,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
+      <a href="../../userDocs/usage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -420,6 +411,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation setup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -437,9 +447,25 @@
   
 
 
-  <h1>Setup</h1>
-
-
+<h1 id="python-setup">Python setup</h1>
+<ol>
+<li>Install the latest python</li>
+<li>install latest pip version </li>
+</ol>
+<p>To update all python packages at once --&gt;</p>
+<pre><code class="language-python">pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+</code></pre>
+<p>To get the requirements.txt file</p>
+<pre><code>pip freeze &gt; requirements.txt
+</code></pre>
+<p>To install and use the requirements.txt</p>
+<pre><code>pip install -r requirements.txt
+</code></pre>
+<h2 id="documentation-setup">Documentation setup</h2>
+<p>mkdocs is used to create the documentation of the project and also to host it in GitHub pages</p>
+<ol>
+<li>pip install mkdocs</li>
+</ol>
 
 
 
