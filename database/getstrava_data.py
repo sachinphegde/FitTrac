@@ -34,7 +34,7 @@ def get_access_token(token_params):
         print(data)
     else:
         print(f"Error getting access token: {response.text}")
-    
+
 
     # print("User Data:", strava_data)
     #insert_user_data(data)
@@ -43,4 +43,3 @@ def get_utc_time():
     expires_at_unix_timestamp = response.json().get('expires_at')
     expires_at_datetime = datetime.datetime.utcfromtimestamp(expires_at_unix_timestamp)
     print("Expires at:", expires_at_datetime)
-    
