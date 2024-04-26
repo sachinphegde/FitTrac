@@ -1,21 +1,32 @@
-name: Super Linter
+---
+name: Lint Code Base
 
 on:
   pull_request:
-    branches:
-      - 'feature*'
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+permissions: { }
 
 jobs:
-  lint:
-    name: Lint code
+  build:
+    name: Code Linter
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up Super Linter
-        uses: github/super-linter@v6
+      - name: Super-linter
+        uses: super-linter/super-linter@v6
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
