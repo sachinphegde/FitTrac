@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 
 import sqlite3
+import os
 
 def create_database(database_name):
-    try:
-        conn = sqlite3.connect(database_name + '.db')
-        conn.close()
-        print(f"Database '{database_name}' created successfully.")
-    except sqlite3.Error as e:
-        print(f"Error creating database: {e}")
+    if not os.path.exists(database_name + '.db'):
+        try:
+            conn = sqlite3.connect(database_name + '.db')
+            conn.close()
+            print(f"Database '{database_name}' created successfully.")
+        except sqlite3.Error as e:
+            print(f"Error creating database: {e}")
+    else:
+        print("Database already exists.")
 
 
 def create_table(database_name, table_name, columns):
@@ -56,3 +60,18 @@ def update_data(database_name, table_name, column_to_update, new_value, conditio
         print("Data updated successfully.")
     except sqlite3.Error as e:
         print(f"Error updating data: {e}")
+
+
+def delete_data(database_name, table_name, condition):
+    try:
+        conn = sqlite3.connect(database_name + '.db')
+        cursor = conn.cursor()
+
+        delete_query = f'DELETE FROM {table_name} WHERE {condition}'
+        cursor.execute(delete_query)
+
+        conn.commit()
+        conn.close()
+        print("Data deleted successfully.")
+    except sqlite3.Error as e:
+        print(f"Error deleting data: {e}")

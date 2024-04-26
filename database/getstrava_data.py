@@ -30,7 +30,7 @@ def get_access_token(token_params):
         refresh_token = data['refresh_token']
         print(f"Access token: {access_token}")
         print(f"Refresh token: {refresh_token}")
-        get_activities(access_token)
+        #get_activities(access_token)
         print(data)
     else:
         print(f"Error getting access token: {response.text}")
