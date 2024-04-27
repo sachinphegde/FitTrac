@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+'''Start of the application'''
+
 from flask import Flask
 from auth.auth_app import auth
 from database import database
@@ -10,8 +12,9 @@ app.register_blueprint(auth)
 #login.register_blueprint(login)
 
 def main():
+    '''main function the start of the application'''
     #initialize the database
-    database.create_database('fitTrac')
+    database.create_database('database/fitTrac')
     #run the application
     app.run(debug=True)
 
