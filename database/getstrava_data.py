@@ -6,6 +6,7 @@ from database import database
 
 TOKEN_EXCHANGE_URL = 'https://www.strava.com/oauth/token'
 BASE_URL = "https://www.strava.com/api/v3"
+DATABASE_PATH = 'database/fitTrac'
 
 
 def get_activities(access_token):
@@ -19,12 +20,31 @@ def get_activities(access_token):
     else:
         print(f"Error: {response.status_code}, {response.text}")
 
+athlete_data_to_store = {'id': 'string',
+                'username': 'string',
+                'firstname': 'string', 
+                'lastname': 'string', 
+                'sex': 'string', 
+                'weight': 'string', 
+                'city': 'string', 
+                'access_token': 'string', 
+                'refresh_token': 'string', 
+                'expires_at': 'string'}
 
 def add_user_data(data):
     '''gets the access token for the new logged in user'''
-    database.create_table('fitTrac', 'userData', {'id': 'string', 'username': 'string'})
-    database.insert_data('fitTrac', 'userData', [data['athlete']['id'], data['athlete']['username']])
-    database.add_new_row_if_not_exists('fitTrac', 'userData', 'id', data['athlete']['id'], [data['athlete']['id'], data['athlete']['username']])
+    database.create_table(DATABASE_PATH, 'athleteInfo', athlete_data_to_store)
+    athlete_data = [data['athlete']['id'],
+                    data['athlete']['username'],
+                    data['athlete']['firstname'],
+                    data['athlete']['lastname'],
+                    data['athlete']['sex'],
+                    data['athlete']['weight'],
+                    data['athlete']['city'],
+                    data['access_token'],
+                    data['refresh_token'],
+                    data['expires_at']]
+    database.insert_data(DATABASE_PATH, 'athleteInfo', 'id', data['athlete']['id'], athlete_data)
 
 def get_access_token(token_params):
     '''gets the access token for the new logged in user'''

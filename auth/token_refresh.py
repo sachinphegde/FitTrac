@@ -29,3 +29,21 @@ new_access_token, new_refresh_token = refresh_access_token(client_id, client_sec
 if new_access_token:
     print(f"New access token: {new_access_token}")
     print(f"New refresh token: {new_refresh_token}")
+
+
+
+# to check if a token has expired
+import time
+
+def is_token_expired(expires_at):
+    current_time = time.time()
+    return current_time >= expires_at
+
+# Example usage:
+expires_at = 1630387200  # Example value for expires_at (Unix timestamp)
+is_expired = is_token_expired(expires_at)
+
+if is_expired:
+    print("Token has expired.")
+else:
+    print("Token is still valid.")
