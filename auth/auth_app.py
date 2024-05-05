@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
+'''Strava app authentication'''
 
-import sys
-from flask import Flask, request, redirect, Blueprint, render_template
-import requests
-import yaml
+from flask import request, Blueprint, render_template
 from database import getstrava_data
 
 CLIENT_ID = '90219'
@@ -16,7 +14,7 @@ auth = Blueprint('auth', __name__, url_prefix='/strava-auth', template_folder='t
 
 @auth.route('/')
 def index():
-    # Redirect users to the Strava authorization URL
+    '''Redirect users to the Strava authorization URL'''
     auth_params = {
         'client_id': CLIENT_ID,
         'response_type': 'code',
@@ -24,14 +22,15 @@ def index():
         'approval_prompt': 'force',
         'scope': 'read,activity:read'
     }
-    strava_oauth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' for k, v in auth_params.items()]))
+    strava_oauth_url = '{}?{}'.format(STRAVA_AUTH_URL, '&'.join([f'{k}={v}' \
+                                                                 for k, v in auth_params.items()]))
     return render_template('login.html', strava_oauth_url=strava_oauth_url)
     #return redirect(auth_url)
 
 
 @auth.route('/exchange-token', methods=['GET']) # type: ignore
 def exchange_token():
-    # Exchange authorization code for access token
+    '''Exchange authorization code for access token'''
     code = request.args.get('code')
     token_params = {
         'client_id': CLIENT_ID,
